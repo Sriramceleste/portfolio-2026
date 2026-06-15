@@ -1,14 +1,27 @@
 /* ==========================================================================
-   1. CSS Variables & Accessible Color Palette (High Contrast)
+   1. Dynamic Light/Dark Mode Theme (Requirement 4)
    ========================================================================== */
+/* MOBILE-FIRST: Default to Light Mode Variables */
 :root {
-    --bg-primary: #0f172a;       /* Deep slate background */
-    --text-primary: #f8fafc;     /* Off-white text for high contrast */
-    --text-secondary: #94a3b8;   /* Muted text for paragraphs */
-    --accent: #38bdf8;           /* Vibrant blue for links/focus states */
-    --surface: #1e293b;          /* Slightly lighter slate for project cards */
-    --border: #334155;           
+    --bg-primary: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --accent: #0284c7;
+    --surface: #f8fafc;
+    --border: #e2e8f0;
     --font-main: system-ui, -apple-system, sans-serif;
+}
+
+/* System Preference Media Query for Dark Mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #0f172a;
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --accent: #38bdf8;
+        --surface: #1e293b;
+        --border: #334155;
+    }
 }
 
 /* ==========================================================================
@@ -25,92 +38,55 @@ body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
-    padding: 0 1.5rem;
+    padding: 1rem; /* Smaller padding for mobile screens */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-h1, h2, h3 {
-    line-height: 1.2;
-    margin-bottom: 1rem;
-}
+h1, h2, h3 { line-height: 1.2; margin-bottom: 1rem; }
+p { color: var(--text-secondary); margin-bottom: 1.5rem; }
+a { color: var(--accent); text-decoration: none; font-weight: 500; }
+a:hover { text-decoration: underline; }
 
-p {
-    color: var(--text-secondary);
-    margin-bottom: 1.5rem;
-}
-
-a {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
-}
-
-a:hover {
-    text-decoration: underline;
-}
+/* Accessibility Focus States */
+*:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+.skip-link { position: absolute; top: -40px; left: 0; background: var(--accent); padding: 8px; z-index: 100; }
+.skip-link:focus { top: 0; }
 
 /* ==========================================================================
-   3. Accessibility: Focus States & Skip Link
+   3. Flexbox for Localized Components (Requirement 2)
    ========================================================================== */
-/* Crucial for Lighthouse 100: Highly visible focus outlines for keyboard users */
-*:focus-visible {
-    outline: 3px solid var(--accent);
-    outline-offset: 4px;
-    border-radius: 2px;
-}
-
-/* Hide the skip link visually, but reveal it when focused via 'Tab' key */
-.skip-link {
-    position: absolute;
-    top: -40px;
-    left: 0;
-    background: var(--accent);
-    color: #000;
-    padding: 8px;
-    z-index: 100;
-    transition: top 0.2s ease;
-}
-
-.skip-link:focus {
-    top: 0;
-}
-
-/* ==========================================================================
-   4. Layout & Structure
-   ========================================================================== */
-header, main, footer {
-    max-width: 900px;
-    margin: 0 auto;
-}
-
 header {
-    padding: 2rem 0;
+    padding: 1.5rem 0;
     border-bottom: 1px solid var(--border);
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
+/* Flexbox stacking vertically on mobile */
 nav ul {
-    list-style: none;
     display: flex;
-    gap: 1.5rem;
+    flex-direction: column;
+    gap: 1rem;
+    list-style: none;
 }
 
-nav a[aria-current="page"] {
-    border-bottom: 2px solid var(--accent);
-    padding-bottom: 4px;
-}
-
-section {
-    margin-bottom: 4rem;
+/* Flexbox stacking vertically on mobile */
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
 }
 
 /* ==========================================================================
-   5. Project Grid System
+   4. CSS Grid for Two-Dimensional Layouts (Requirement 1)
    ========================================================================== */
+/* Single column grid on mobile */
 .project-grid {
     display: grid;
-    /* Auto-fits columns based on screen size (Mobile responsive natively) */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: 1fr; 
     gap: 1.5rem;
 }
 
@@ -122,30 +98,64 @@ article {
     transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-article:hover {
-    transform: translateY(-4px);
-    border-color: var(--accent);
+article:hover { transform: translateY(-4px); border-color: var(--accent); }
+
+/* Form Grid layout */
+form {
+    display: grid;
+    gap: 1.5rem;
 }
 
-article h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-article p {
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
+input, textarea {
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+button {
+    padding: 0.75rem 1.5rem;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 /* ==========================================================================
-   6. Footer
+   5. Mobile-First Responsive Media Queries (Requirement 3)
    ========================================================================== */
-footer {
-    padding: 2rem 0;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    margin-top: 2rem;
+/* Tablet & Desktop Overrides (Triggers when screen is 768px or wider) */
+@media (min-width: 768px) {
+    body {
+        padding: 0 2rem;
+    }
+
+    header, main, footer {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    /* Flexbox changes to horizontal alignment for desktop */
+    nav ul {
+        flex-direction: row;
+    }
+    
+    footer {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    /* Grid expands to multi-column automatic fitting for desktop */
+    .project-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
 }
