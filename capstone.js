@@ -56,3 +56,60 @@ window.addEventListener('hashchange', router);
 
 // Run the router when the page initially loads
 window.addEventListener('load', router);
+// ==========================================================================
+// 3. AI Smart Assistant Interface Logic
+// ==========================================================================
+const aiToggleBtn = document.getElementById('ai-toggle-btn');
+const aiChatWindow = document.getElementById('ai-chat-window');
+const aiCloseBtn = document.getElementById('ai-close-btn');
+const aiForm = document.getElementById('ai-form');
+const aiInput = document.getElementById('ai-input');
+const aiMessages = document.getElementById('ai-messages');
+
+// Open/Close Widget
+aiToggleBtn.addEventListener('click', () => {
+    aiChatWindow.style.display = 'flex';
+    aiToggleBtn.style.display = 'none';
+});
+
+aiCloseBtn.addEventListener('click', () => {
+    aiChatWindow.style.display = 'none';
+    aiToggleBtn.style.display = 'block';
+});
+
+// Process Questions
+aiForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const query = aiInput.value.trim();
+    if (!query) return;
+
+    // Render User Message
+    appendMessage(query, 'user');
+    aiInput.value = '';
+
+    // Automated Expert Parsing Logic
+    setTimeout(() => {
+        let response = "I can help you find workspace gear! Try asking about keyboards, mice, or displays.";
+        const lowerQuery = query.toLowerCase();
+
+        if (lowerQuery.includes('keyboard')) {
+            response = "Our Mechanical Dev Keyboard ($129) features highly responsive switches perfect for rapid compilation.";
+        } else if (lowerQuery.includes('mouse') || lowerQuery.includes('ergonomic')) {
+            response = "The Ergonomic Mouse ($79) prevents wrist fatigue during long engineering or system development sessions.";
+        } else if (lowerQuery.includes('monitor') || lowerQuery.includes('screen') || lowerQuery.includes('display')) {
+            response = "The Ultra-Wide Monitor ($349) is ideal for managing multi-window code reviews and tracking background server instances.";
+        } else if (lowerQuery.includes('headphone') || lowerQuery.includes('audio')) {
+            response = "The Noise Cancelling Headphones ($199) are great for locking into continuous development cycles without distractions.";
+        }
+
+        appendMessage(response, 'system');
+    }, 600);
+});
+
+function appendMessage(text, sender) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `message ${sender}`;
+    msgDiv.textContent = text;
+    aiMessages.appendChild(msgDiv);
+    aiMessages.scrollTop = aiMessages.scrollHeight; // Auto-scroll
+}

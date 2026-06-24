@@ -19,5 +19,21 @@
     <main id="app-root"></main>
 
     <script src="capstone.js"></script>
+    <div id="ai-chat-widget" class="ai-widget">
+    <button id="ai-toggle-btn" class="ai-toggle">💬 Ask Gemini Assistant</button>
+    <div id="ai-chat-window" class="ai-window" style="display: none;">
+        <div class="ai-header">
+            <h3>Gemini Tech Assistant</h3>
+            <button id="ai-close-btn">×</button>
+        </div>
+        <div id="ai-messages" class="ai-messages">
+            <div class="message system">Hello! Ask me anything about our developer gear.</div>
+        </div>
+        <form id="ai-form" class="ai-form">
+            <input type="text" id="ai-input" placeholder="e.g., Which mouse is ergonomic?..." required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>

@@ -23,3 +23,17 @@ body { background: var(--bg); color: var(--text); }
 .price { color: var(--accent); font-size: 1.25rem; font-weight: bold; margin: 0.5rem 0 1rem; }
 button { background: var(--accent); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
 button:hover { opacity: 0.9; }
+/* AI Chat Assistant UI */
+.ai-widget { position: fixed; bottom: 20px; right: 20px; z-index: 1000; font-family: sans-serif; }
+.ai-toggle { background: var(--accent); color: white; border: none; padding: 0.75rem 1.25rem; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.ai-window { width: 320px; background: var(--surface); border: 1px solid #334155; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); display: flex; flex-direction: column; overflow: hidden; margin-bottom: 10px; }
+.ai-header { background: #1e293b; padding: 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; }
+.ai-header h3 { font-size: 1rem; margin: 0; }
+.ai-header button { background: transparent; border: none; color: white; font-size: 1.5rem; cursor: pointer; width: auto; }
+.ai-messages { height: 250px; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem; }
+.message { padding: 0.5rem 0.75rem; border-radius: 8px; max-width: 85%; }
+.message.system { background: #334155; align-self: flex-start; }
+.message.user { background: var(--accent); align-self: flex-end; color: white; }
+.ai-form { display: flex; border-top: 1px solid #334155; }
+.ai-form input { flex-grow: 1; background: transparent; border: none; padding: 0.75rem; color: white; outline: none; }
+.ai-form button { width: auto; border-radius: 0; padding: 0 1rem; }
